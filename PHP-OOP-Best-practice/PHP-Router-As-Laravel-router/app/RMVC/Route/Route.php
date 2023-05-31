@@ -6,8 +6,10 @@ class Route
 {
     private static array $routesGet = [];
 
-    public static function get(string $route, array $controller)
+    public static function get(string $route, array $controller): RouteConfiguration
     {
-        /*self::$routesGet[] = ;*/
+        $routeConfiguraiton = new RouteConfiguration($route, $controller[0], $controller[1]);
+        self::$routesGet[] = $routeConfiguraiton;
+        return $routeConfiguraiton;
     }
 }
