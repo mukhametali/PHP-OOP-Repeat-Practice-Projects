@@ -20,9 +20,14 @@ class RouteDispatcher
 
     public function process()
     {
-
+        //1.Cleaning up the route string
         $this->saveRequestUri();
+        //2.We split the route string into an array and store the position of the parameter and its name in a new array
         $this->setParamMap();
+        //3.We split the query string into an array and check if there is a position in this array, like the position of the parameter
+        //3.1 If there is such a position, then we bring the query string into a regular expression
+        $this->makeRegexRequest();
+
 
     }
 
@@ -52,9 +57,34 @@ class RouteDispatcher
                 $this->paramMap[$paramKey] = preg_replace('/(^{)|(}*)/','' ,$param);
             }
         }
+
+    }
+
+    private function makeRegexRequest()
+    {
+        $requestUriArray = explode('/',$this->requestUri);
+
+        foreach ($this->paramMap as $paramKey => $param)
+        {
+            if (!isset($requestUriArray[$paramKey]))
+            {
+                return;
+            }
+
+            $requestUriArray[$paramKey] = '{.*}';
+        }
+
+        $this->requestUri = implode('/',$requestUriArray);
+        $this->prepareRegex();
+
         echo "<pre>";
-        var_dump($this->paramMap);
+        var_dump($this->requestUri);
         echo "</pre>";
+    }
+
+    private function prepareRegex()
+    {
+        $this->requestUri = str_replace('/','\/', $this->requestUri);
     }
 
 
