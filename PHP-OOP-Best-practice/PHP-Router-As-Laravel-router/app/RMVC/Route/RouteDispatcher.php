@@ -5,6 +5,7 @@ namespace App\RMVC\Route;
 class RouteDispatcher
 {
     private string $requestUri = '/';
+    private array $paramMap =[];
 
 
     private RouteConfiguration $routeConfiguration;
@@ -21,6 +22,7 @@ class RouteDispatcher
     {
 
         $this->saveRequestUri();
+        $this->setParamMap();
 
     }
 
@@ -37,9 +39,21 @@ class RouteDispatcher
             $this->routeConfiguration->route = $this->clean($this->routeConfiguration->route);
         }
 
+
+    }
+
+    private function setParamMap()
+    {
+        $routeArray = explode('/',$this->routeConfiguration->route);
+        foreach ($routeArray as $paramKey => $param)
+        {
+            if (preg_match('/{.*}/', $param))
+            {
+                $this->paramMap[$paramKey] = preg_replace('/(^{)|(}*)/','' ,$param);
+            }
+        }
         echo "<pre>";
-        var_dump($this->requestUri);
-        var_dump($this->routeConfiguration->route);
+        var_dump($this->paramMap);
         echo "</pre>";
     }
 
