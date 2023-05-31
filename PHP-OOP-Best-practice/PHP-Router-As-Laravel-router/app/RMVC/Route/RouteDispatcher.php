@@ -27,6 +27,9 @@ class RouteDispatcher
         //3.We split the query string into an array and check if there is a position in this array, like the position of the parameter
         //3.1 If there is such a position, then we bring the query string into a regular expression
         $this->makeRegexRequest();
+        //4.Launch controller and action
+        $this->run();
+
 
 
     }
@@ -76,15 +79,32 @@ class RouteDispatcher
 
         $this->requestUri = implode('/',$requestUriArray);
         $this->prepareRegex();
-
-        echo "<pre>";
-        var_dump($this->requestUri);
-        echo "</pre>";
     }
 
     private function prepareRegex()
     {
         $this->requestUri = str_replace('/','\/', $this->requestUri);
+    }
+
+    private function run()
+    {
+        if (preg_match("/$this->requestUri/", $this->routeConfiguration->route))
+        {
+            $this->render();
+        }
+    }
+
+    private function render()
+    {
+        $className = $this->routeConfiguration->controller;
+        $action = $this->routeConfiguration->action;
+        print((new $className)->$action());
+
+        /*echo "<pre>";
+        var_dump((new $className)->$action());
+        echo "</pre>";*/
+
+        die();
     }
 
 
