@@ -4,6 +4,9 @@ namespace App\RMVC\Route;
 
 class RouteDispatcher
 {
+    private string $requestUri = '/';
+
+
     private RouteConfiguration $routeConfiguration;
 
     /**
@@ -17,10 +20,51 @@ class RouteDispatcher
     public function process()
     {
 
+        $this->saveRequestUri();
 
+    }
+
+    private function clean($str):string
+    {
+        return preg_replace('/(^\/)|(\/$)/','',$str);
+    }
+
+    private function saveRequestUri()
+    {
+        if ($_SERVER['REQUEST_URI'] !== '/')
+        {
+            $this->requestUri = $this->clean($_SERVER['REQUEST_URI']);
+            $this->routeConfiguration->route = $this->clean($this->routeConfiguration->route);
+        }
 
         echo "<pre>";
-        var_dump($_SERVER);
+        var_dump($this->requestUri);
+        var_dump($this->routeConfiguration->route);
         echo "</pre>";
     }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
