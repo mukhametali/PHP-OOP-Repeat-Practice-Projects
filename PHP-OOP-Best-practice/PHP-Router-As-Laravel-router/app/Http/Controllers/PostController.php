@@ -9,9 +9,9 @@ class PostController extends Controller
         return 1111111111111111111111;
     }
 
-    public function show($post)
+    public function show($post, $bla)
     {
-        return 2222222222222222222222222;
+        return $post;
     }
 
 }
