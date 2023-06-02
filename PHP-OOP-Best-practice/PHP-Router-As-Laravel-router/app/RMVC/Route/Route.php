@@ -37,4 +37,9 @@ class Route
         self::$routesPost[] = $routeConfiguraiton;
         return $routeConfiguraiton;
     }
+
+    public static function redirect($url)
+    {
+        header('Location:' . $url);
+    }
 }
