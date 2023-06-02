@@ -13,7 +13,7 @@ class PostController extends Controller
 
     public function show($post)
     {
-        return View::view('post.show');
+        return View::view('post.show', compact('post'));
     }
 
 }

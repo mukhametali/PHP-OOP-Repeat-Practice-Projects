@@ -6,9 +6,11 @@ class View
 {
     private static $path;
 
-    public static function view(string $str)
-    {
+    private static ?array $data;
 
+    public static function view(string $str, array $data = []): string
+    {
+        self::$data = $data;
         $path = str_replace('public', 'resources/views/', $_SERVER['DOCUMENT_ROOT']);
         self::$path = $path . str_replace('.','/', $str) . '.php';
         return self::getContent();
@@ -16,6 +18,7 @@ class View
 
     private static function getContent()
     {
+        extract(self::$data);
         ob_start();
 
         include self::$path;

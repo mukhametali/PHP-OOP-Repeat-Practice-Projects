@@ -9,5 +9,8 @@
 </head>
 <body>
 <h1>This is show page</h1>
+<div>
+    ID<?=$post;?>
+</div>
 </body>
 </html>
