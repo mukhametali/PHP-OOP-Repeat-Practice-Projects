@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\RMVC\View\View;
+
 class PostController extends Controller
 {
     public function index()
     {
-        return 1111111111111111111111;
+        return View::view('post.index');
     }
 
-    public function show($post, $bla)
+    public function show($post)
     {
-        return $post;
+        return View::view('post.show');
     }
 
 }

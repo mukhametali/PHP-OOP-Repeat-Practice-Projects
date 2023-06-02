@@ -9,6 +9,7 @@ class App
 {
     public static function run()
     {
+
         foreach (Route::getRoutesGet() as $routeConfiguration)
         {
             $routeDispatcher =  new RouteDispatcher($routeConfiguration);
