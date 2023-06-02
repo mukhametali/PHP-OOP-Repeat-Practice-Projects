@@ -5,6 +5,16 @@ namespace App\RMVC\Route;
 class Route
 {
     private static array $routesGet = [];
+    private static array $routesPost = [];
+
+    /**
+     * @return array
+     */
+    public static function getRoutesPost(): array
+    {
+        return self::$routesPost;
+    }
+
 
     /**
      * @return array
@@ -18,6 +28,13 @@ class Route
     {
         $routeConfiguraiton = new RouteConfiguration($route, $controller[0], $controller[1]);
         self::$routesGet[] = $routeConfiguraiton;
+        return $routeConfiguraiton;
+    }
+
+    public static function post(string $route, array $controller): RouteConfiguration
+    {
+        $routeConfiguraiton = new RouteConfiguration($route, $controller[0], $controller[1]);
+        self::$routesPost[] = $routeConfiguraiton;
         return $routeConfiguraiton;
     }
 }

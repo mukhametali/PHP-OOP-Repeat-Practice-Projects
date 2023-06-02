@@ -16,4 +16,9 @@ class PostController extends Controller
         return View::view('post.show', compact('post'));
     }
 
+    public function store()
+    {
+        
+    }
+
 }

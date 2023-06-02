@@ -9,5 +9,14 @@
 </head>
 <body>
 <h1>This is index page</h1>
+<div>
+    Store
+    <div>
+        <form action="/posts" method="Post">
+            <input type="text" placeholder="value" name="title">
+            <input type="submit">
+        </form>
+    </div>
+</div>
 </body>
 </html>
